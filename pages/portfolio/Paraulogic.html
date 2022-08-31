@@ -86,11 +86,90 @@
     </section><!-- End Breadcrumbs -->
 
     <section class="inner-page">
+      <!-- Prefabricated stuff -->
+      
       <div class="container">
-        <p>
-          Example inner page template
+        <p><b>Level:</b> Personal project
+        <br>
+        <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/paraulogicSolutions">https://github.com/JaumeAlbardaner/paraulogicSolutions</a>
         </p>
-      </div>
+        <br>
+        <h3>What is <em>Paraulògic</em>?</h3>
+        <p>
+          Paraulògic is a game developed by <a href="https://rodamots.cat/">Rodamots</a>, 
+          a website that is dedicated to spreading knowledge about the catalan language. Every day they publish a catalan word or idiom, and explain its definition
+          as well as sample usages one may give to it.
+        </p>
+        <p>
+          To celebrate the publication of the 5000th word, they developed a <a href="https://rodamots.cat/escreix/us-presentem-el-paraulogic/">game</a>. 
+          Just like the 
+          <a href="https://www.nytimes.com/puzzles/spelling-bee">NYTimes Spelling Bee game</a>, 7 letters are given, and the player must create as many 
+          combinations that yield to a real word as possible.
+        </p>
+        <div class="row justify-content-md-center">
+        <div class="col-3">
+          <img src="../../assets/img/portfolio/Paraulogic/paraulogic.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-3">
+          <img src="../../assets/img/portfolio/Paraulogic/solver.jpg" class="img-fluid" alt="">
+        </div>
+        </div>
+        <br>
+        <h3>
+          My Project
+        </h3>
+        <p>
+          Playing this game became an everyday habit for my family, and since I was not the best at it, I decided I would try to program a script that would return 
+          all of everyday's words.
+        </p>
+        <p>
+          Following a labmate's advice (tnx Sarah): as a programmer <b>you should never reinvent the wheel, you should git clone it</b>. <br>This way of thinking explains my first steps.
+        </p>
+        <h4>First steps</h4>
+        <p>
+        The first steps consisted in checking out whether someone els had published a script that did exactly this on GitHub already. 
+        These scripts were like the one in this repo:<br>
+        <a href="https://github.com/molinet88/paraulogic-solver">https://github.com/molinet88/paraulogic-solver</a>. </p>
+        <p>
+          <h4>Recoding</h4>
+        By the time I dug into this project, Vilaweb (a news website) had already bought the game. They changed how the game was coded, 
+        which lead to the code becoming unusable. Since now performing a query did not return anything, I had to recode the solution.
+        Nevertheless, as I am more well versed in Python I selected another repo as a starting point:<br>
+        <a href="https://gist.github.com/mikicat/6f6796d68a36800dfd9291b0a5e29805">https://gist.github.com/mikicat/6f6796d68a36800dfd9291b0a5e29805</a>
+        </p>
+        <p>
+          After modifying the script and getting it to work, I wanted to bring it to a mobile platform. Which is why I turned to Android Studio.
+        </p>
+
+        <h4><img src="../../assets/img/portfolio/Paraulogic/Android.png" class="img-fluid" alt="" width="25px"> Android implementation</h4>
+        <p>
+        Although I had previously programmed some Android applications, it was never using Kotlin (the newly developed programming language for Android Studio).
+        Thereafter, for this project I set out to learn the basics of the language by developing this app.<br>
+        When I got the app to work it performed the following procedure:
+          <ol>
+            <li>Generate a separate thread (so that UI doesn't collapse)</li>
+            <li>Get HTML file from HTTPS request</li>
+            <li>Search for "var t"</li>
+            <li>Write on screen its contents using the main thread</li>
+          </ol>
+
+          Although the work could have been improved (by not using so many "split" instructions), the app that resulted from this did exactly what was needed.
+          I even added a functionality where words that used all of the letters (aka "Tutis") were given more importance.
+        </p>
+        <br>
+        <h3>Future work:</h3>
+        <p>As in any project, there are things that could be improved. Although I will not necessarily be working on this project again, here are a list of improvements
+          that could be performed if the case happened where I want to work on this project in the future:
+        </p>
+        <ul>
+          <li><b>Remove splits:</b> As stated previously, some part of the code that runs the app relies on "splitting" the string-ed HTML. This is a 
+            bad solution, as any change that is introduced to the website may perform out-of-bound array access and break the app. Properly parsing the HTML 
+            should be the best solution.
+          </li>
+          <li><b>Better UI:</b> Although the app displays the solutions, it does not do so in a user-friendly manner. Some devices may not even see the entire solution,
+          as no scrolling has been implemented and small screens will not display all of it. Using "webView" and automatically introducing the solution might prove best.</li>
+        </ul>
+        <br><br><br><br><br>
     </section>
 
   </main><!-- End #main -->
