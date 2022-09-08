@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script>
+  function includeHTML() {
+    var z, i, elmnt, file, xhttp;
+    /*loop through a collection of all HTML elements:*/
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+      elmnt = z[i];
+      /*search for elements with a certain atrribute:*/
+      file = elmnt.getAttribute("w3-include-html");
+      if (file) {
+        /*make an HTTP request using the attribute value as the file name:*/
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4) {
+            if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+            if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+            /*remove the attribute, and call this function once more:*/
+            elmnt.removeAttribute("w3-include-html");
+            includeHTML();
+          }
+        }      
+        xhttp.open("GET", file, true);
+        xhttp.send();
+        /*exit the function:*/
+        return;
+      }
+    }
+  };
+  </script>
+    
+
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -136,7 +168,15 @@
         which lead to the code becoming unusable. Since now performing a query did not return anything, I had to recode the solution.
         Nevertheless, as I am more well versed in Python I selected another repo as a starting point:<br>
         <a href="https://gist.github.com/mikicat/6f6796d68a36800dfd9291b0a5e29805">https://gist.github.com/mikicat/6f6796d68a36800dfd9291b0a5e29805</a>
+        <br> The script was as follows:<br><br>
+
+        <div w3-include-html="../../assets/img/portfolio/Paraulogic/highlighted.html"></div> 
+        <script>
+          includeHTML();
+        </script>
+    
         </p>
+
         <p>
           After modifying the script and getting it to work, I wanted to bring it to a mobile platform. Which is why I turned to Android Studio.
         </p>
@@ -171,7 +211,7 @@
         </ul>
         <br><br><br><br><br>
     </section>
-
+  
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -205,6 +245,8 @@
 
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
+
+    
 
 </body>
 
