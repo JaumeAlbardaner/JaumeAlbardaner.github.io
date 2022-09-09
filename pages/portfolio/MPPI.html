@@ -87,9 +87,110 @@
 
     <section class="inner-page">
       <div class="container">
-        <p>
-          Example inner page template
+        <br>
+        <p><b>Level:</b> Professional project
+          <br>
+          <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/ninjacar_mppi">https://github.com/JaumeAlbardaner/ninjacar_mppi</a>
         </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/NinjaCar03/ARPG_Logo.png" class="img-fluid" alt="">
+          </div>
+          </div><br>
+        <h3>What is "MPPI"?</h3>
+        <p>
+          MPPI stands for Model Predictive Path Integral (control). It is an algorithm that is used to control the behaviour of a vehicle.
+          The algorithm works by simulating how the vehicle would react to different inputs (predictive), and based off of the results, it
+          calculates the control values that are transmitted onto the vehicle.
+        </p>
+        <h3>Why an MPPI Implementation?</h3>
+        <p>
+          During my stay at the Autonomous Robotics and Perception Group (<a href="https://arpg.github.io/">ARPG</a>) 
+          at the University of Colorado Boulder, I was requested to find algorithms that could be compared to <a href="https://arpg.github.io/papers/heckman_rss2015.pdf">CarPlanner</a>.
+          After surveying the state of the art I implemented one of them. In this case it happened to be MPPI because another labmate had implemented it in the past.
+          Thereafter it was known to be possible.
+        </p>
+        <h3>The Autorally platform</h3>
+        <p>
+          The MPPI algorithm was developed by <a href="https://github.com/AutoRally/autorally">GeorgiaTech</a>. Not only did they publish the controller with 
+          instructions on how to use it, but they also accompanied it with a Gazebo simulation where one could visualize how the controller controlled a car.
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/MPPI/gazebo.png" class="img-fluid" alt="">
+          </div>
+        </div><br>
+        <p>
+          Nevertheless, the platform in which I would be implementing the algorithm was not very rich on resources, so no resources should
+          be wasted on the Gazebo simulation. Thus, the algorithm needed to be separated from 
+          the simulator before being implemented onto the <a href="https://jaumealbardaner.github.io/pages/portfolio/NinjaCar03.html">NinjaCar</a>.
+        </p>
+
+        <h3>The implementation</h3>
+        <p>
+          After successfully separating the algorithm from the original framework and implementing it onto the NinjaCar, 
+          I was left with the contents of the <a href="https://www.github.com/JaumeAlbardaner/ninjacar_mppi">ninjacar_mppi repository</a>. <br>
+          So far the MPPI algorithm worked inside of the vehicle, as I could still observe how the algorithm controlled a simulated car:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/MPPI/mppi-logo.png" class="img-fluid" alt="">
+          </div>
+        </div><br>
+
+        <h4>Map building</h4>
+        <p>
+          In order to customize the experience and have the car run on tracks that we could set up ourselves, I created a series of scripts that 
+          would record the position of the car in order to generate a track. <br>
+          As I wanted the maps to be as similar to the ones provided by the platform as possible, I had to deduct how they had been coded by observing
+          them.<br>
+          After some time observing I obtained a similar map:
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/MPPI/costMap.png" class="img-fluid" alt="">
+          </div>
+        </div><br>
+        <p>
+          In order to generate the map I followed this procedure:
+          <ol>
+            <li>Record a trajectory (onto a txt file).</li>
+            <li>Set a matrix (the map) to all zeroes.</li>
+            <li>Draw the recorded trajectory.</li>
+            <li>Perform dilation (Computer Vision technique) to compute the distance of every point of the map to the trajectory.</li>
+            <li>Those points close to the trajectory have their distance normalized (so the track has ones on each side and a 0 in the middle).</li>
+            <li>The rest of the points have 10 added to their distance.</li>
+          </ol>
+        </p>
+
+        <h4>Model generation</h4>
+        <p>
+          The mppi controller could rely on either base functions or a neural network to represent the dynamic model of the vehicle.
+          <br>
+          The procedure to get the Neural Network to work has been explained in depth in <a href="https://jaumealbardaner.github.io/pages/portfolio/MPPItrainer.html">
+            this
+          </a> page. <br>
+          However, to get the controller to work with base functions I had to dig very deep inside the algorithm. I ended up finding that there was something 
+          about an interpolation mechanism (Differential Dynamic Programming, <a href="https://github.com/AutoRally/autorally/issues/80">DDP</a>)
+          that broke the controller. This turned out to be "fixable" by just disabling <em>use_feedback_gains</em> on the launch file.
+        </p>
+
+        <h4>Final demo</h4>
+        <p>
+          Although I finished debugging the NeuralNet trainer after my stay in the lab, I could still manage to get MPPI to control the NinjaCar:
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-6">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ARw5aQ5AA-s?start=25" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          </div>
+          <br>
+          <br>
+
+
       </div>
     </section>
 
