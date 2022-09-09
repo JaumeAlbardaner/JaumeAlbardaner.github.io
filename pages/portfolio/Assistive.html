@@ -87,9 +87,298 @@
 
     <section class="inner-page">
       <div class="container">
-        <p>
-          Example inner page template
+        <p><b>Level:</b> Professional project
+          <br>
+          <b>GitHub Repository:</b> <em>Privated</em>
+          <br>
+          <b>Publication:</b> <a href="https://upcommons.upc.edu/handle/2117/354403">https://upcommons.upc.edu/handle/2117/354403</a>
         </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/System/logo_iri.png" class="img-fluid" alt="">
+          </div>
+          </div><br>
+        <h3>What is an "Active vision system for searching detecting and localizing objects in a real assistive apartment"?</h3>
+        <p>
+          As the name of the project implies, this system has to detect certain objects, and if one is detected, it is able
+          to deduct its location within the assistive apartment. An "assistive" apartment is like any other apartment, with the difference
+          that it has been prepared for people who may have a harder time performing everyday tasks. Whatever the reason may be.
+        </p>
+        <h3>The apartment</h3>
+        <p>
+          The project has been developed in the <b>Perception and Manipulation lab</b>, at the Institut de Robòtica i Informàtica Industrial.<br>
+          This lab includes a simulation of an apartment:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-7">
+            <img src="../../assets/img/portfolio/System/perceplab.png" class="img-fluid" alt="">
+          </div>
+          </div><br>
+
+        <h3>The project</h3>
+        <p>
+          This project was separated in three parts, the first two being the main scope of the project and the last one being a later addition:
+          <ul>
+            <li>Object detection</li>
+            <li>Efficient search</li>
+            <li>Robot commanding</li>
+          </ul>
+        </p>
+
+        <h4>Object detection</h4>
+        <p>
+          In order to be able to locate objects within the apartment, the system had to first be trained to recognize those objects. 
+          After surveying the state of the art in object detection, YOLOv4 was chosen as the algorithm to use. However, in order to use it
+          a dataset with the images of the objects that had to be detected had to be obtained.
+        </p>
+        <h5>The dataset</h5>
+        <p>
+          The lab had part of the YCB object set available, which is why initially I set out to find if somebody had previously uploaded such a dataset.
+
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-8">
+            <img src="../../assets/img/portfolio/System/ycb_dataset.png" class="img-fluid" alt="">
+          </div>
+          </div><br>
+
+          <p>Initially it seemed that somebody had done exactly that, as it can be seen in the following website:
+            <a href="https://okabe.dev/ycb-video-dataset-download-mirror/">https://okabe.dev/ycb-video-dataset-download-mirror/</a>. <br>
+            However, after training a model with the entire dataset, not only did it not detect the objects, it detected additional objects 
+            where there were none.
+
+            <br>
+            Thereafter, I set out to generate my own dataset taking into consideration everything that has to be accounted for:
+          </p>
+          <div class="row justify-content-md-center">
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/System/pose_change.png" class="img-fluid" alt=""> Pose change
+            </div>
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/System/lighting_change.png" class="img-fluid" alt=""> Lighting change
+            </div>
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/System/occlusion.png" class="img-fluid" alt=""> Occlusion
+            </div>
+          </div><br>  
+          <p>Afterwards, I relied on the tool provided in the <a href="https://github.com/AlexeyAB/darknet"> YOLO </a> repository to label 
+            the objects that appeared in eavery picture individually:
+            <div class="row justify-content-md-center">
+              <div class="col-4">
+                <img src="../../assets/img/portfolio/System/yolo_mark.png" class="img-fluid" alt=""> 
+              </div>
+              <div class="col-4">
+                <img src="../../assets/img/portfolio/System/yolo-mark2.png" class="img-fluid" alt=""> 
+              </div>
+            </div><br>  
+            </p>
+        <h5>The camera</h5>
+        
+        <p>
+          The camera that was used in this project was an Amcrest IP3M-941W-UK. It was located at the ceiling of the simulated apartment.
+          <br>
+          In order to give it commands, a <a href="https://pypi.org/project/amcrest/">Python library</a> was used.
+          Thereafter most of the project was developed in this language.
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/System/camera.png" class="img-fluid" alt=""> 
+          </div>
+        </div><br>  
+        <p>
+          Although the dataset was obtained from a different camera, the resulting model was still capable of finding the trained objects with a 
+          very high precision:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/System/detection.png" class="img-fluid" alt=""> 
+          </div>
+        </div><br>  
+        <h4>Efficient search</h4>
+        <p>
+          Although the camera was now capable of detecting whether there was an object in its scope or not, it had to find the object as fast as possible.
+          In order to do this, an object was tracked throughout the day inside of the apartment. This yielded a heatmap that described 
+          the likelihood of finding the object in each position depending on the time of day:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/System/system-logo.png" class="img-fluid" alt=""> 
+          </div>
+        </div><br>  
+        <p>
+          And if this probabilistic map was projected onto the apartment, each possible site could be discretized into a location. In this example, the object 
+          could be in three different locations: the bookshelf, the sink or the table:
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-6">
+            <img src="../../assets/img/portfolio/System/Heatmap.png" class="img-fluid" alt=""> 
+          </div>
+        </div><br>  
+        <p>
+          In order to look through the different locations to find the object as fast as possible, three models were considered:
+          <ul>
+            <li>
+              <b>Sorting by %:</b> This model checks each preset in a decreasing probability fashion.
+            </li>
+            <li>
+              <b>Current configuration’s best:</b> This model takes into account the current position of the
+              camera and moves towards the one that presents the highest probability × proximity
+              value.
+            </li>
+            <li>
+              <b>Brute force:</b> This model takes into account the current position of the camera and recursively checks every possible 
+              path the camera can take. It then selects the one that presents
+              the highest score. The value each path has consists of the sum of scores from each time
+              the camera must move to a new configuration.
+            </li>
+          </ul>
+            <p>
+              With those three models, four tests were conducted:
+
+            </p>
+          <ul>
+            <li>
+              <b>T1:Last set preset:</b> We tested this option because in the way we have implemented the
+                configuration of the camera’s presets, the camera remains in the last position set. It also
+                turns out to be the one with the least probability of housing the object.
+            </li>
+            <li>
+              <b>T2: Highest probability preset:</b> After testing the first option, we wanted to check if moving the camera to the preset with the highest probability made a difference.
+            </li>
+            <li>
+              <b>T3: Random location:</b> This test was made in order to test if implementing an algorithm
+                that left the camera looking in a random position affected performance.
+            </li>
+            <li>
+              <b>T4: Random location with delay:</b> Every time we move the camera from one location to
+              another, there is a delay between the moment when the camera stops moving and when
+              the image stops moving. We implemented a wait every time the camera stopped moving,
+              and checked if there were noticeable different results. This test highly penalizes methods
+              that stop on the most places without finding the object.
+            </li>
+          </ul>
+          After running all of the tests, the model that performed the best was the one that checked each preset in a decreasing probability fashion, 
+          although the results were not too significative.
+        </p>
+        <h4>Robot commanding</h4>
+        <p>
+          After finding out the object in the most efficient manner, it was a good idea to have the TIAGo mobile manipulator move towards that location. 
+          This would allow it to interact with the object. As an example, the system could look for some pills and have the robot bring them to the 
+          patient.<br>
+        </p>
+        <h5>ROS</h5>
+        <p>
+          The system was implemented in the lab's ROS framework, where it was capable of communicating with the TIAGo. It was split into the following nodes:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-4">
+            <img src="../../assets/img/portfolio/System/nodes.png" class="img-fluid" alt=""> 
+          </div>
+        </div><br>  
+        <p>
+          <ul>
+            <li>
+              <b>htc_capture:</b> Records the position of an HTC tracker or controller (simulating an object).
+            </li>
+            <li>
+              <b>object_database:</b> Serves as a storage for all previously saved detections.
+            </li>
+            <li>
+              <b>object_clusters:</b> Generates clusters from the data stored in the database, which represent
+              where the object usually is.
+            </li>
+            <li>
+              <b>camera_presets:</b> Prepares the camera to look at the usual locations of a given object.
+            </li>
+            <li>
+              <b>search_object_poi:</b> Asks the system to prepare an object for searching, or searches it. It
+              can also send a TIAGo manipulator robot to a location.
+            </li>
+            <li>
+              <b>camera_order_presets: </b> Given the camera’s configuration, it computes the order in which
+              locations have to be visited.
+            </li>
+            <li>
+              <b>camera_move:</b> Moves the camera to a desired location and runs the object detecting algo-
+              rithm to check for the presence of a desired object.
+            </li>
+          </ul>
+        </p>
+        <h5>GUI: object tracker</h5>
+        <p>
+        In order to generate the heatmaps, a GUI that relied on ROS's dynamic_reconfigure package was developed:
+      </p>
+      <div class="row justify-content-md-center">
+        <div class="col-4">
+          <img src="../../assets/img/portfolio/System/gui.png" class="img-fluid" alt=""> 
+        </div>
+      </div><br>  
+      <ul>
+        <li>
+          <b>recording:</b> boolean that can easily toggle recording on/off.
+        </li>
+        <li>
+          <b>dataFile:</b> name of the object we want to operate with.
+        </li>
+        <li>
+          <b>dataPeriod:</b> establishes the frequency with which we want to save the data. Represents
+          the amount of data recordings per second we want.
+        </li>
+        <li>
+          <b>tracking:</b> here we must introduce the name of the tracker we want to store the data from.
+        </li>
+        <li>
+          <b>Load:</b> makes a request to the database for the data corresponding to the object with the
+          name specified in the "dataFile" variable.
+        </li>
+        <li>
+          <b>Save:</b> sends the information recorded locally to the database, and requests that it be saved.
+        </li>
+      </ul>
+      <h5>GUI: object locator</h5>
+      <p>
+        In order to locate an object, a GUI that relied on ROS's dynamic_reconfigure package was developed:
+      </p>
+      <div class="row justify-content-md-center">
+        <div class="col-4">
+          <img src="../../assets/img/portfolio/System/guisearch.png" class="img-fluid" alt=""> 
+        </div>
+      </div><br>  
+      <ul>
+        <li><b>object:</b> name of the object we want to search or prepare the system to search.</li>
+        <li><b>prepare:</b> boolean that acts as a button. When pressed it will only stop being pressed after
+          the attempt at preparing the system for the object has been completed.</li>
+        <li><b>search:</b> boolean that acts as a button. When pressed it will only stop being pressed after
+          the attempt at finding the object has been completed.</li>
+        <li><b>hour:</b> positive integer that represents the hour in which we want to center the search for
+          the object.</li>
+        <li><b>minute:</b> positive integer that represents the minute in which we want to center the search for
+          the object.</li>
+        <li><b>second:</b> positive integer that represents the second in which we want to center the search for
+          the object.</li>
+        <li><b>margin:</b> positive integer that helps establish the amount of data we want to process for
+          the time-dependant clustering algorithm. We take all the data that is within "Center ±
+          margin" seconds.</li>
+        <li><b>interval:</b> positive integer that marks how many seconds pass between each log of data we
+          take into account when calling the clustering algorithm.</li>
+        <li><b>method:</b> integer with three different values (0-2) for what method must be used to search
+          (Descibed under "Efficient search")</li>
+      </ul>
+
+      <h4>Final demo</h4>
+      <p>
+        After implementing all this, here is a demo of how the system behaves when asked to look for an apple or a can of Pringles:
+      </p>
+      <div class="row justify-content-md-center">
+        <div class="col-6">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/72bLugmj9ZU" title="YouTube video player" frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <br>
+        <br>
+
       </div>
     </section>
 
