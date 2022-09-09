@@ -87,9 +87,146 @@
 
     <section class="inner-page">
       <div class="container">
-        <p>
-          Example inner page template
+        <p><b>Level:</b> Professional project
+          <br>
+          <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/mppi_trainer">https://github.com/JaumeAlbardaner/mppi_trainer</a>
         </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/NinjaCar03/ARPG_Logo.png" class="img-fluid" alt="">
+          </div>
+          </div><br>
+        <h3>Why an "MPPI Trainer"?</h3>
+        
+          During my stay at the Autonomous Robotics and Perception Group (<a href="https://arpg.github.io/">ARPG</a>) 
+          at the University of Colorado Boulder, I implemented the <a href="https://jaumealbardaner.github.io/pages/portfolio/MPPI.html">MPPI algorithm</a> 
+           in a <a href="https://jaumealbardaner.github.io/pages/portfolio/NinjaCar03.html">NinjaCar platform</a>.
+
+          As the MPPI controller simulates control inputs into the future in order to choose the best command to apply, it needs to know how the car
+          will react to different inputs. This has been implemented in two ways: by setting a series of functions (<em>base functions</em>) or by relying on 
+          a neural network. <br><br>
+
+          For the implementation of MPPI I preferred relying on the neural network. Although I eventually managed to make the system work with both systems,
+          the base functions initially broke the controller at what seemed random. As the Neural Network seemed more robust, I pursued its training in order
+          to adapt it to the dynamic model of our NinjaCar.
+
+        </p> <br>
+
+        <h3>Previous work:</h3>
+        <p>
+        In the official GitHub repo of the Autorally platform, a series of neural network models are provided: <br>
+        <a href="https://github.com/AutoRally/autorally/tree/melodic-devel/autorally_control/src/path_integral/params/models">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+        https://github.com/AutoRally/autorally/tree/melodic-devel/autorally_control/src/path_integral/params/models
+        </a>
+        <br> Nevertheless, the description that is given of the neural network model is not enough to allow others to adapt the neural network to a different platform.
+        Thereafter, a search was conducted to find whether someone else had approached this problem. This search returned a repository where someone worked
+        on this exact algorithm:<br>
+        <a href="https://github.com/rdesc/autorally">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          https://github.com/rdesc/autorally
+        </a>
+        <br>
+        Although the author only worked on the Gazebo simulator, the results seemed too good to ignore:
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-6">
+            <img src="../../assets/img/portfolio/mppiTrainer/previousTrainer.png" class="img-fluid" alt="">
+          </div>
+        </div>
+        <br>
+        <p>Although the announced results are great, when the newly trained neural network was input to the MPPI algorithm, the simulation
+          would display the vehicle moving in a phisically impossible manner.</p>
+          <br><br>
+          <h3>Custom trainer:</h3>
+          <p>Seeing how the car moved sideways made me think that there was either an issue with the z axis (as described in the 
+            <a href="https://github.com/JaumeAlbardaner/mppi_trainer#12-output">output section of the MPPI trainer repository</a>) or with
+          what the inputs and outputs of the neural network had to be. <br>
+
+          After messing with the z axis for a while I realized that the main issue had to be the training of the neural network.
+        </p>
+        <h4>Initial info:</h4>
+        <p>
+          According to the Autorally repo: "<em>All of the models take as input 4 (roll, longitudenal velocity, lateral velocity, heading rate) 
+          state variables and the commanded steering and throttle, and they output the time derivative of the state variables</em>". However, there is no
+          information regarding the order in which this information must be fed into the neural network.<br>
+          The trainer that I had initially used had the following structure set for inputs and outputs:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-7">
+            <img src="../../assets/img/portfolio/mppiTrainer/previousTrainer-struct.png" class="img-fluid" alt="">
+          </div>
+        </div>
+        <h4>Actual data:</h4>
+        <p>
+          In order to verify whether the previous structure was correct or not, I ran the simulation and printed the data that was being input (4 state + 2 control) into the 
+          neural network, and what data was returned (4 outputs). This yielded the following graph:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-7">
+            <img src="../../assets/img/portfolio/mppiTrainer/mppiTrainer-logo.png" class="img-fluid" alt="">
+          </div>
+        </div>
+        <h4>Resulting structure:</h4>
+        <p>
+          After analysing the code whilst checking the graph, it was deduced that the neural network relied on the following structure:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/mppiTrainer/actual-struct.png" class="img-fluid" alt="">
+          </div>
+        </div><br>
+        <ul>
+          <b>NN inputs (in NinjaCar frame)</b>
+          <li><b>Input0:</b> The variable takes only values between 0 and 0.1, and it’s always a positive
+            value. Thereafter it’s a good supposition that this variable stands for the <b>Roll</b> (rotation along the longitudinal axis of the car).</li>
+          <li><b>Input1:</b> The variable takes a value that seems to be nearing 6, but never reaches it. It
+            should be the <b>longitudinal velocity</b>.</li>
+          <li><b>Input2:</b> The variable takes a value that seems to be 0 when the longitudinal velocity
+            is near its maximum value, it only increases from then onward, which suggests that’s
+            when the vehicle enters the curve (and drifts increasingly more). It should be the </b>lateral
+            velocity</b>.</li>
+          <li><b>Input3:</b> This variable should be the <b>yaw derivative</b>, as it is known to be part of the
+            inputs but had not appeared yet.</li>
+          <li><b>Control0:</b> By limiting the steering, this variable changed its values. So this is the
+            <b>Steering</b>.</li>
+          <li><b>Control1:</b> By limiting the throttle, this variable changed its values. So this is the
+            <b>Throttle</b>.</li><br>
+            <b>NN outputs</b> 
+          <li>
+          <b>Output0:</b> Although this was not mentioned anywhere else but inside the code, this
+            variable corresponds to a projection of the <b>velocity</b> of the vehicle onto the <b>world’s frame X axis</b>.
+          </li>
+          <li><b>Output1:</b> Following same principle, this variable corresponds to the vehicle’s <b>velocity</b>
+            projected onto the <b>world’s frame Y axis</b>.</li>
+          <li><b>Output2:</b> According to the information provided within the code, this variable corre-
+            sponds to a <b>negated yaw derivative</b>.</li>
+          <li><b>Output3:</b> No other data could be found on what this variable was, so it should be the
+            <b>roll derivative</b>.</li>
+        </ul>
+        <br>
+        <h4>New trainer:</h4>
+        <p>
+          After finding out the structure of the NeuralNetwork, a model was trained using this new structure. Although the errors that were 
+          obtrained were not low, <b>the model that resulted from the training followed the laws of physics this time</b>:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/mppiTrainer/trainerErr.png" class="img-fluid" alt="">
+          </div>
+        </div><br>
+        <p>During different sessions of training, the best errors were obtained after a very careful preprocessing procedure. There was as lot
+          of noise in the data collected by the motion capture space.<br>
+          After obtaining a working training algorithm, the procedure was improved by allowing the system to start training off of the weights 
+          and biases provided in the Autorally repository. However, no testing was performed with this improvement, as my stay in the lab had already finished
+          by then.
+        </p><br><br><br>
+       
       </div>
     </section>
 
