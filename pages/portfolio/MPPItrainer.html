@@ -181,7 +181,11 @@
             <img src="../../assets/img/portfolio/mppiTrainer/actual-struct.png" class="img-fluid" alt="">
           </div>
         </div><br>
-        <ul>
+        <p>
+        As it can be seen, the structure that was obtained is much different than the one that was used in the previous repo. Each 
+        of these variables have been deducted in the following manner:
+      </p>        
+      <ul>
           <b>NN inputs (in NinjaCar frame)</b>
           <li><b>Input0:</b> The variable takes only values between 0 and 0.1, and it’s always a positive
             value. Thereafter it’s a good supposition that this variable stands for the <b>Roll</b> (rotation along the longitudinal axis of the car).</li>
@@ -197,17 +201,17 @@
             <b>Steering</b>.</li>
           <li><b>Control1:</b> By limiting the throttle, this variable changed its values. So this is the
             <b>Throttle</b>.</li><br>
-            <b>NN outputs</b> 
+            <b>NN outputs (world and NinjaCar frame)</b> 
           <li>
           <b>Output0:</b> Although this was not mentioned anywhere else but inside the code, this
             variable corresponds to a projection of the <b>velocity</b> of the vehicle onto the <b>world’s frame X axis</b>.
           </li>
           <li><b>Output1:</b> Following same principle, this variable corresponds to the vehicle’s <b>velocity</b>
             projected onto the <b>world’s frame Y axis</b>.</li>
-          <li><b>Output2:</b> According to the information provided within the code, this variable corre-
-            sponds to a <b>negated yaw derivative</b>.</li>
+          <li><b>Output2:</b> According to the information provided within the code, this variable corre
+            sponds to a <b>negated yaw derivative</b> (NinjaCar's frame).</li>
           <li><b>Output3:</b> No other data could be found on what this variable was, so it should be the
-            <b>roll derivative</b>.</li>
+            <b>roll derivative</b> (NinjaCar's frame).</li>
         </ul>
         <br>
         <h4>New trainer:</h4>
