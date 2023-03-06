@@ -157,17 +157,84 @@
           </ol>
 
           <p>
-            To solve the 
+            To solve the lack of detail with the terminal output, I relied on <a href="https://processing.org/">Processing</a>. It enabled me to easily replicate the 
+            original output from the Donut.c author:
           </p>
-        
 
-        One of the main features of the original code is that the visualization of the doughnut is performed in the terminal itself.
+          <div class="row justify-content-md-center">
+            <div class="col-5">
+              <img src="../../assets/img/portfolio/churro/donut.gif"  alt="This is an animated gif image, but it does not move" class="img-fluid">
+            </div>
+          </div>
+          <br><br>
+          <p>
+            To adapt the code to make a churro, there were two steps to be performed:
+          </p>
+          <ol>
+            <li><b>Change the rotated area:</b>
+              In the Donut.c code, a circle is rotated around the y axis to give the illusion of a doughnut. In my case it had to be a something more like a star.
+            </li>
+            <li><b>Adapt the luminosity:</b>
+              Since it's not a circle anymore, there are more changes in lighting in each rotation.
+            </li>
+        </ol>
+
+        <h5>Changing the rotated area</h5>
+        <div class="row justify-content-md-center">
+          <div class="col-2">
+            <img src="../../assets/img/portfolio/churro/r1r2.png"  alt="This is a png image, it does not move" class="img-fluid">
+          </div>
+        </div><br>
+        <p>
+          Regarding the original code, <b>R2</b> does not need to be changed. However, <b>R1</b> will need to change depending on the angle. I have adapted it so that it follows the function:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/churro/functionR1.png"  alt="This is a png image, it does not move" class="img-fluid">
+          </div>
+        </div>
+        <br>
+        <p>This results in the following section (which is later shifted along the x axis because of <b>R2</b>'s effect):</p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/churro/Section.png"  alt="This is a png image, it does not move" class="img-fluid">
+          </div>
+        </div><br>
+        <h5>Computing the new illumination</h5>
+
+        <p>Initially I made an attempt at computing the exact normal vector that the Churro should have at each point. However, as equations started to become bigger
+          and bigger, I chose to simplify the shape. By choosing to work with a star-like shape, the normal at each point can be computed much easily:
+        </p>
+        <div class="row justify-content-md-center">
+          <div class="col-3">
+            <img src="../../assets/img/portfolio/churro/L.png"  alt="This is a png image, it does not move" class="img-fluid">
+          </div>
+        </div><br>
+        <h4>Resulting output</h4>
+        <p>
+          Lastly, I checked that the illumination was set properly by plotting the circular version of the Churro. Since it looked similar than the resulting illumination
+          on the doughnut, but with the small adaptations made for the star-like pattern, I considered the project a success. 
+        </p>
+        <p>
+          For the final version, a distortion was performed on one of the axis, and the rotation along the y axis was shortened, to give it a more churro-like 
+          appearance.
+        </p>
         
-        <img src="../../assets/img/portfolio/churro/donut.gif" width="40%" alt="This is an animated gif image, but it does not move"/>
-        <img src="../../assets/img/portfolio/churro/churro-cercle.gif" width="40%" alt="This is a circular churro gif image, but it does not move"/>
-        <img src="../../assets/img/portfolio/churro/churro-gif" width="40%" alt="This is churro gif image, but it does not move"/>
-        
-          
+        <div class="row justify-content-md-center">
+          <div class="col-4">
+            <img src="../../assets/img/portfolio/churro/churro-cercle.gif" class="img-fluid" alt="">
+          </div>
+          <div class="col-4">
+            <img src="../../assets/img/portfolio/churro/churro-gif.gif" class="img-fluid" alt="">
+          </div>
+        </div><br>
+          <p>Thanks for reading, here's a chocolate churro</p>
+          <div class="row justify-content-md-center">
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/churro/churro-end.jpg"  alt="This is a jpg image, it does not move" class="img-fluid">
+            </div>
+          </div><br>
+  
       </div>
     </section>
 
