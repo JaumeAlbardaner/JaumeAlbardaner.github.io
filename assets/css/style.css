@@ -32,6 +32,11 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+div {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
