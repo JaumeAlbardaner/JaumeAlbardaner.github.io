@@ -102,6 +102,42 @@
             Wayer is a fictional enterprise that was created by a group of three students (including me) which facilitates indoor navigation to its customers.
           </p>
 
+          <h4>How does it work?</h4>
+          <p>
+            There are 3 steps that we follow:
+          </p>
+          <ul>
+            <li>3D model generation</li>
+            <li>Model navegation and customization</li>
+            <li>App generation</li>
+          </ul>
+
+          <h5>1. 3D model generation:</h5>
+          <p>
+            Our customers asks for help easing navigation inside a specific building. Afterwards, either the blueprint of the building is provided
+            or we generate one ourselves, even if it's not as detailed.
+          </p>
+          <p>Afterwards, the blueprints are introduced into a 3D modelling program (in this project, SketchUp was used) and the scaled 3D model of the building
+            is created.
+          </p>
+
+          <h5>2. Model navegation and customization:</h5>
+          <p>
+            The 3D model is introduced into the Unity game engine, inside of which we can generate the navegability map. In this step we exclude the zones the customer
+            doesn't want their clients to wander to. We also set the points where users are expected to start their path, as well as all possible destinations.
+          </p>
+          <p>
+            Depending on the budget of the project, customizations are added. One that was introduced for the project's demo was excluding the use of stairs for 
+            handicapped users.
+          </p>
+
+          <h5>3. App generation:</h5>
+          <p>
+            Once the system has been created in Unity, it is then built into an app that can be installed into almost any Android devices (Android 7+, 99%).
+            In these platform is where Google's ARCore libraries shine the brightest. In the videos attached below, one can view an initial prototype in action,
+            where the 3D model can be seen, as well as another where the walls have been hidden.
+          </p>
+
           <div class="row justify-content-md-center">
             <div class="col-8">
               <iframe width="860" height="480" src="https://www.youtube.com/embed/edwgRTneGgs" title="Wayer - Demo 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -116,8 +152,8 @@
 
           <h4>Final presentation</h4>
           <p>
-          I have left embedded in this section the final presentation (pitch) of our product in front of a jury external to the university. In said presentation, we begin with a demonstration
-          of our product. 
+          I have left embedded in this section the final presentation (pitch) of our product in front of a jury external to the university. In said presentation, we begin with the most complete demonstration of our product.
+          
         </p> 
         <p>PS: The pitch was performed in catalan.</p>
 
@@ -127,6 +163,21 @@
             </div>
           </div><br>
           
+          <h4>Future work</h4>
+          <p>
+            If I were to keep working in this project, there is one imperative step to take: solve the problem with the drift. The ARCore library relies on data from the 
+            camera and the IMU to predict where the cellphone is. As the user moves around, there is an accumulation of error that will result in the user going through
+            walls on the 3D model. The user will see this as the planner asking them to move through doors that aren't there (aka walls).
+          </p>
+          <p>
+            To solve this I will probably monitor the user's location uncertainty, and prompt them to recalibrate their position once uncertainty becomes too large.
+            To recalibrate their position, they will move the cellphone around until it captures an object whose pose is known and static in world coordinates.
+            From that information the antitransform can be computed to know where the user is relative to the object, thus where they are in world frame.
+          </p>
+          <p>
+            Maybe the step can be performed dynamically on powerful phones, but may not work as well on smaller phones. Maybe if the camera's feedback can be
+            transmitted without delay the computations can be performed on a separate machine.
+          </p>
 
       </div>
     </section>
