@@ -108,7 +108,7 @@
           </p>
           <ul>
             <li>3D model generation</li>
-            <li>Model navegation and customization</li>
+            <li>Model navigation and customization</li>
             <li>App generation</li>
           </ul>
 
@@ -121,9 +121,9 @@
             is created.
           </p>
 
-          <h5>2. Model navegation and customization:</h5>
+          <h5>2. Model navigation and customization:</h5>
           <p>
-            The 3D model is introduced into the Unity game engine, inside of which we can generate the navegability map. In this step we exclude the zones the customer
+            The 3D model is introduced into the Unity game engine, inside of which we can generate the navigability map. In this step we exclude the zones the customer
             doesn't want their clients to wander to. We also set the points where users are expected to start their path, as well as all possible destinations.
           </p>
           <p>
@@ -139,15 +139,11 @@
           </p>
 
           <div class="row justify-content-md-center">
-            <div class="col-8">
-              <iframe width="860" height="480" src="https://www.youtube.com/embed/edwgRTneGgs" title="Wayer - Demo 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
+            <iframe style="width: 40vw; height:25vw;" src="https://www.youtube.com/embed/edwgRTneGgs" title="Wayer - Demo 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div><br>
 
           <div class="row justify-content-md-center">
-            <div class="col-8">
-              <iframe width="860" height="480" src="https://www.youtube.com/embed/1OlI6tRo_FM" title="Wayer - Demo 0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
+            <iframe style="width: 40vw; height:25vw;" src="https://www.youtube.com/embed/1OlI6tRo_FM" title="Wayer - Demo 0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div><br>
 
           <h4>Final presentation</h4>
@@ -158,9 +154,7 @@
         <p>PS: The pitch was performed in catalan.</p>
 
           <div class="row justify-content-md-center">
-            <div class="col-8">
-              <iframe src="https://drive.google.com/file/d/1UOgn0CFA3hdutsWUL9p8r7qfhO_3WDxF/preview" width="860" height="480" allow="autoplay"></iframe>
-            </div>
+              <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1UOgn0CFA3hdutsWUL9p8r7qfhO_3WDxF/preview" allow="autoplay"></iframe>
           </div><br>
           
           <h4>Future work</h4>
@@ -172,7 +166,7 @@
           <p>
             To solve this I will probably monitor the user's location uncertainty, and prompt them to recalibrate their position once uncertainty becomes too large.
             To recalibrate their position, they will move the cellphone around until it captures an object whose pose is known and static in world coordinates.
-            From that information the antitransform can be computed to know where the user is relative to the object, thus where they are in world frame.
+            From that information the inverse transform can be computed to know where the user is relative to the object, thus where they are in world frame.
           </p>
           <p>
             Maybe the step can be performed dynamically on powerful phones, but may not work as well on smaller phones. Maybe if the camera's feedback can be
