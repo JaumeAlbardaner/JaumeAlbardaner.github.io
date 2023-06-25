@@ -89,7 +89,7 @@
       <div class="container">
         <p><b>Level:</b> Medium project
           <br>
-          <b>GitHub Repository:</b> -
+          <b>GitHub Repository:</b> <em>Privated</em>
           <br>
           <b>Grade:</b>  -
         </p>
@@ -99,7 +99,148 @@
             <img src="../../assets/img/portfolio/bicycle/Etseib_logo.svg" width = 10000wv class="img-fluid" alt="">
           </div>
           </div><br>
-          <p>Hello world!</p>
+          <h3>What is "Robot chess"?</h3>
+          <p>
+            At some point the AI overlords will take over and enslave all of humanity, but until that point comes we must help them so that they treat us nice when doomsday comes.
+
+            The first step towards that goal consists in taking the fun of the game of chess away, by having a robot play it by itself.
+          </p>
+          <p>
+            Thus, this project consisted in developing all the middleware that allows for easy manipulation of chess pieces in a chessboard using a UR3 robot arm with a robotiq 2F-85 gripper.
+          </p>
+          <br>
+          <h3>Project structure:</h3>
+          <p>
+            This project was carried under subject 240AR060 (Introduction to ROS) of the Master of Science in Automatic control and Robotics, @ UPC. In the subject's website (<a href ="https://sir.upc.edu/projects/rostutorials/final_work/index.html">https://sir.upc.edu/projects/rostutorials/final_work/index.html</a>) we 
+            were provided some sample code as well as a proposed separation in different packages based off of functionality:
+          </p>
+          <ul>
+            <li><b>chesslab_setup</b></li>
+            <p>
+              This package was provided in its completion (nothing was added to it), as it provides some essencial feaatures for the project:              
+            </p>
+            <ul>
+              <li><b>Aruco reading</b></li>
+              <p>Reads the arucos embedded on the chessboard as well as on top of each chess piece in order to triangulate its pose and publish it on the <em>/tf</em> topic.</p>
+              <li><b>Collision checking</b></li>
+              <p>By simulating the scenario in a physical engine (Kautham), it could compute what collisions were present in any configuration of the robot.</p>
+              <li><b>IK</b></li>
+              <p>Given a desired pose for the end effector of the UR3, it computed the inverse kinematics and provided different possible configurations to achieve that pose.</p>
+              <li><b>RViz connection</b></li>
+              <p>It served as a connection to RViz, as updating the poses of the arucos would update their location in RViz and in the Kautham physics engine.</p>
+            </ul>
+
+            <li><b>chesslab_sensing</b></li>
+            <p>
+              This package reads the poses that have been published under the <em>/tf</em> topic, and separates those that belong to the chess pieces. Afterwards, it queries <em>chesslab_setup</em> to update 
+              the poses on RViz, as well as in Kautham. <em>chesslab_planning</em> is also queried in order to update the position of the pieces in its cell representation.
+            </p>
+            <div class="row justify-content-md-center">
+              <div class="col-7">
+                <img src="../../assets/img/portfolio/RobotChess/chesslab_sensing.jpeg" width = 10000wv class="img-fluid" alt="">
+              </div>
+              </div>
+            <li><b>chesslab_actions</b></li>
+            <p>
+              This package queries the person managing the computer whether they want to perform a certain action (such as "b2b4":moving the piece in b2 to b4) or let a chess engine decide for them.
+            </p>
+            <p>
+              Afterwards, the action is sent to <em>chesslab_planning</em>, which returns a sequence of actions to perform (in case the instruction is correct) or asks for another instruction if the previously given one is not doable.
+            </p>
+            <p>
+              In case we have a valid set of instructions to follow, this package analyses them and makes the robot follow through each of them. Usually these instructions can be segmented into 5 different steps:
+            </p>
+            <ol>
+              <li>Moving to a safe position (ensure no collisions) above the aruco.</li>
+              <li>Moving linearly in cartesian space towards the chess piece (from the safe configuration).</li>
+              <li>Opening/closing the gripper (closing if picking up, opening if dropping).</li>
+              <li>Moving linearly back to safe position above chess piece.</li>
+              <li>Moving to the place cell (if pickup was just performed) or going to the home configuration (if action was just finished).</li>
+            </ol>  
+            <div class="row justify-content-md-center">
+              <div class="col-8">
+                <img src="../../assets/img/portfolio/RobotChess/chesslab_actions.jpeg" width = 10000wv class="img-fluid" alt="">
+              </div>
+              </div>
+            <li><b>chesslab_planning</b></li>
+            <p>
+              This package contains a virtual chessboard with the positions that each chess piece is in, as well as their aruco markers. An order is given to the package, expressed in two cells (such as "b2b4"). 
+              The code inside said package processes the order, starting by obtaining what chess is being moved where (pawn B2 -> pawn B4), and then processing whether the move is allowed based off of the current
+              chessboard configuration.
+            </p>
+            <p>
+              This correctness check is performed via restriction checking. As an example, verifying whether the movement of a black pawn is properly performed requires the following code:
+
+            </p>
+
+            <pre class="code_syntax" style="color:#000000;background:#ffffff;">
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">case </span><span style="color:#0000e6; ">'p'</span><span style="color:#e34adc; ">:</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">// Black pawn</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">//Can't move backwards or sideways</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">-</span>row_o<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">=</span><span style="color:#008c00; ">0</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">//Can't move more than 2 spaces</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">-</span>row_o<span style="color:#808030; ">&lt;</span><span style="color:#808030; ">-</span><span style="color:#008c00; ">2</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">//Can't move more than 1 sideways</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#603000; ">abs</span><span style="color:#808030; ">(</span>col_d<span style="color:#808030; ">-</span>col_o<span style="color:#808030; ">)</span><span style="color:#808030; ">&gt;</span><span style="color:#008c00; ">1</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">// Advancing 2 spaces -&gt;possible in origin</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">-</span>row_o<span style="color:#808030; ">=</span><span style="color:#808030; ">=</span><span style="color:#808030; ">-</span><span style="color:#008c00; ">2</span><span style="color:#808030; ">)</span><span style="color:#800080; ">{</span></span>
+              <span class="line_wrapper">        <span style="color:#696969; ">//Possible in origin</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>row_o <span style="color:#808030; ">!</span><span style="color:#808030; ">=</span> <span style="color:#008c00; ">6</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        <span style="color:#696969; ">//Possible without obstacles</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>name_map<span style="color:#808030; ">[</span>row_o<span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#808030; ">]</span><span style="color:#808030; ">[</span>col_o<span style="color:#808030; ">]</span><span style="color:#808030; ">!</span><span style="color:#808030; ">=</span><span style="color:#0000e6; ">'0'</span> <span style="color:#808030; ">|</span><span style="color:#808030; ">|</span> name_map<span style="color:#808030; ">[</span>row_o<span style="color:#808030; ">-</span><span style="color:#008c00; ">2</span><span style="color:#808030; ">]</span><span style="color:#808030; ">[</span>col_o<span style="color:#808030; ">]</span><span style="color:#808030; ">!</span><span style="color:#808030; ">=</span><span style="color:#0000e6; ">'0'</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        <span style="color:#696969; ">//Possible without lateral movements</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>col_o<span style="color:#808030; ">-</span>col_d <span style="color:#808030; ">!</span><span style="color:#808030; ">=</span> <span style="color:#008c00; ">0</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        movetype<span style="color:#808030; ">=</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">//We are just moving</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">break</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#800080; ">}</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">//Move to kill</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>col_o<span style="color:#808030; ">-</span>col_d <span style="color:#808030; ">!</span><span style="color:#808030; ">=</span> <span style="color:#008c00; ">0</span><span style="color:#808030; ">)</span><span style="color:#800080; ">{</span></span>
+              <span class="line_wrapper">        <span style="color:#696969; ">//Possible if someone there/passing</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>pos2Cell<span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">,</span>col_d<span style="color:#808030; ">)</span><span style="color:#808030; ">!</span><span style="color:#808030; ">=</span>passing <span style="color:#808030; ">&amp;</span><span style="color:#808030; ">&amp;</span> piece_d <span style="color:#808030; ">=</span><span style="color:#808030; ">=</span><span style="color:#0000e6; ">'0'</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        <span style="color:#696969; ">// We are killing</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>pos2Cell<span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">,</span>col_d<span style="color:#808030; ">)</span><span style="color:#808030; ">=</span><span style="color:#808030; ">=</span>passing<span style="color:#808030; ">)</span>  movetype <span style="color:#808030; ">=</span><span style="color:#008c00; ">3</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">//Kill passing</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>piece_d <span style="color:#808030; ">!</span><span style="color:#808030; ">=</span><span style="color:#0000e6; ">'0'</span><span style="color:#808030; ">)</span> movetype <span style="color:#808030; ">=</span><span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">//Normal kill</span></span>
+              <span class="line_wrapper">        kill <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">true</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">break</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#800080; ">}</span></span>
+              <span class="line_wrapper"><span style="color:#696969; ">//Advancing 1 space -&gt;destination must be empty</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>row_d<span style="color:#808030; ">-</span>row_o<span style="color:#808030; ">=</span><span style="color:#808030; ">=</span><span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#808030; ">)</span><span style="color:#800080; ">{</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span>piece_d <span style="color:#808030; ">!</span><span style="color:#808030; ">=</span><span style="color:#0000e6; ">'0'</span><span style="color:#808030; ">)</span> <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        movetype<span style="color:#808030; ">=</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper">        <span style="color:#800000; font-weight:bold; ">break</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#800080; ">}</span></span>
+              <span class="line_wrapper">ROS_ERROR_STREAM<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Situation that was not accounted for encountered! Aborting...</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+              <span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#808030; ">-</span><span style="color:#008c00; ">1</span><span style="color:#800080; ">;</span></span></pre>  
+            <p>
+              After the move is verified valid, a global check is performed to verify that the king from the team that is moving is not in a check position.
+              Afterwards, knowing that the goal is valid, and knowing what type of movement is being performed, the Fast Forward planner is called, which returns the movement actions that are later passed to the chesslab_actions package.
+            </p>
+            
+              <div class="row justify-content-md-center">
+              <div class="col-8">
+                <img src="../../assets/img/portfolio/RobotChess/chesslab_planning.jpeg" width = 10000wv class="img-fluid" alt="">
+              </div>
+              </div>
+
+          </ul>
+          <br>
+          <h3>Demonstrations:</h3>
+          <br>
+          <p><b>Simulation:</b></p>
+          <br>
+          <!-- https://drive.google.com/file/d/1j9-7Qm-LbA_4A_kDRvS3GIqXidoWYMCU/view?usp=sharing -->
+          <div class="row justify-content-md-center">
+            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1j9-7Qm-LbA_4A_kDRvS3GIqXidoWYMCU/preview" allow="autoplay"></iframe>
+        </div><br>
+
+          <br>
+          <p><b>Real robot:</b></p>
+          <br>
+          <!-- https://drive.google.com/file/d/1ep2p1ydgs3uL4rhj10QnWiqGmx929pRW/view?usp=sharing -->
+          <div class="row justify-content-md-center">
+            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1ep2p1ydgs3uL4rhj10QnWiqGmx929pRW/preview" allow="autoplay"></iframe>
+        </div><br>
+
       </div>
 
     </section>
