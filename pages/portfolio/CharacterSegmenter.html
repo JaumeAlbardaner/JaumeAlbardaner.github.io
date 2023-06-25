@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Jaume Albardaner</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../../assets/img/J.png" rel="icon">
+  <link href="../../assets/img/J.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v3.8.1
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../../assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="../../index.html">Jaume Albardaner <br>i Torras</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/jaumealbardaner/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="mailto:jaumealbardaner@gmail.com" class="email"><i class="bi bi-envelope"></i></a>
+          <a href="https://www.instagram.com/jaumealbardaner/" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://github.com/JaumeAlbardaner"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../../index.html#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../../index.html#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+          <li><a href="../../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li> -->
+          <li><a href="../../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Character Segmenter</h2>
+          <ol>
+            <li><a href="../../index.html">Home</a></li>
+            <li>Character Segmenter</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <p><b>Level:</b> Medium project
+          <br>
+          <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/handwritten-character-segmentation">https://github.com/JaumeAlbardaner/handwritten-character-segmentation</a>
+          <br>
+          <b>Grade:</b>  -
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/bicycle/Etseib_logo.svg" width = 10000wv class="img-fluid" alt="">
+          </div>
+          </div><br>
+          <br>
+          <h3>What is a "Character Segmenter"?</h3>
+          <p>
+            A character segmenter is an entity that is capable of discerning the union boundaries between two or more characters. When it comes to computer-generated characters, as there is a 
+            standard on what form each character is to take, the problem is trivial. However, the problem becomes incredibly complex as these characters are to be segmented from handwritten text.
+          </p>
+          <h3>Our project</h3>
+          <p>
+            For this project, two separate approaches were conducted:
+          </p>
+          <ul>
+            <li><b>CNN</b></li> For this approach, it was assumed that a character was perfectly photographed, and the only task left was to identify which one it was.
+            <li><b>UNet</b></li> For this approach, the assumption previously introduced was removed. The algorithm had to both find the pixels relevant to each letter and classify them.
+          </ul>
+          <h3>Building the dataset</h3>
+          <p>
+            In order to build a dataset, different classmates were asked to handwrite the following text:
+          </p>
+          <pre>
+            The quick brown fox jumps over the lazy dog.
+            Pack my box with five dozen liquor jugs.
+            How vexingly quick daft zebras jump!
+            Sphinx of black quartz, judge my vow.
+            Jackdaws love my big sphinx of quartz.
+            The five boxing wizards jump quickly.
+            Waltz, bad nymph, for quick jigs vex.
+            Quick zephyrs blow, vexing daft Jim.
+            Two driven jocks help fax my big quiz.
+            Quick, Baz, get my woven flax jodhpurs!
+          </pre>
+          <p>
+            This text was then preprocessed, and each of the letters that appeared in them were properly labelled to conform the final dataset.
+          </p>
+
+          <div class="row justify-content-md-center">
+            <div class="col-5">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/datasetGeneration.png" width = 10000wv class="img-fluid" alt="">
+            </div>
+            </div><br>
+  
+          <h3>Approaches</h3>
+          <h4>CNN</h4>
+          <p>
+            In order to train the CNN with the best possible hyperparameters, the Keras Tuner was applied. With the resulting configuration, the following confusion matrix was 
+            obtained on the validation data:
+          </p>
+          <div class="row justify-content-md-center">
+            <div class="col-5">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/CNN_ConfusionMatrix.png" width = 10000wv class="img-fluid" alt="">
+            </div>
+            </div><br>
+            <p>
+              It can already be seen that very good results are achieved. Nevertheless, some confusion between letters can also be observed, such
+              as in the case of "u" and "v", or in the case of "a" and "o". These are letters that can be confusing even for humans. When observing the 
+              data from which the neural network chose one output over the other, it can be seen that for a letter such as "a" or "o" it has a much harder time 
+              deciding that with an "m".
+            </p>
+            <p>
+              
+            </p>
+            <div class="row justify-content-md-center">
+              <div class="col-4">
+                <img src="../../assets/img/portfolio/CharacterSegmenter/o_confusion.png" class="img-fluid" alt="Confusion with an o character" max-width="auto" height="100%">
+                <p>Ground truth="o"</p>
+              </div>          
+              <div class="col-4">
+                <img src="../../assets/img/portfolio/CharacterSegmenter/m_confusion.png" class="img-fluid" alt="Confusion with an m character" max-width="auto" height="100%">
+                <p>Ground truth="m"</p>
+              </div>
+              </div>
+    
+
+          <p></p>
+          <h4>UNET</h4>
+          <p>
+            Training the UNet was a bit more tricky, as we could not just have our classmates writing endlessly for us, whilst we spent the rest of our lives segmenting each
+            character in order to train the encoder-decoder network.
+          </p>
+          <p>
+            Thus, with the dataset that had been generated, a code that could generate datasets was created. This code took as an input the entire text that our classmates wrote,
+            and for each word generated different images, which contained the same word but written with different characters. For example, to write "the", the code would randomly
+            select another "t", "h" and "e" to make the new word.
+          </p>
+          <div class="row justify-content-md-center">
+            <div class="col-2">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/Dataset1.png" class="img-fluid" alt="Auto generated 'the' word" width="70%">
+              <p>Auto-generated "the"</p>
+            </div>          
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/Dataset2.png" class="img-fluid" alt="Auto generated 'the' word" width="auto">
+              <p>Auto-generated "brown"</p>
+            </div>
+            <div class="col-3">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/Dataset3.png" class="img-fluid" alt="Auto generated 'the' word" width="55%">
+              <p>Auto-generated "fox"</p>
+            </div>
+            </div>
+
+          <p>
+            Generating the dataset like this helped with labelling the images. Since each letter was added individually, it was known what pixels belonged
+            to that letter, thus the class label for each pixel was easily obtainable.
+          </p>
+
+          <p>
+            The training was performed like in the previous section, separating the dataset into training and validation. Since the prediction of UNet consists of an image
+            full of labels, in order to obtain a proper confusion matrix, the validation dataset had to be changed to be a single character.
+            This character was surrounded by a zero-padding in order to obtain the dimension the neural network was trained with.
+          </p>
+          <p>
+            After running the UNet with this new validation dataset, a softmax function was applied to obtain the likeliest character contained in the 
+            image, from which this confusion matrix was obtained:
+          </p>
+
+          <div class="row justify-content-md-center">
+            <div class="col-5">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/UNet_confusion.png" width = 10000wv class="img-fluid" alt="">
+            </div>
+          </div>
+          <br>
+
+          <p>
+            This all indicated that with the UNet we obtained better results than with the CNN. Even checking the original validation set made it seem like 
+            this model would work amazingly:
+          </p>
+
+          <div class="row justify-content-md-center">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/UNetGeneratedOutput.png" width = 100% class="img-fluid" alt="">
+          </div>
+          <br>
+
+          <p>
+            However, as new data was manually added (new handwritten words were added to the validation dataset), accuracy dropped incredibly fast:
+          </p>
+
+
+          <div class="row justify-content-md-center">
+              <img src="../../assets/img/portfolio/CharacterSegmenter/UNetRealOutput.png" width = 10000wv class="img-fluid" alt="">
+          </div>
+          <br>
+
+          <h3>
+            Conclusions
+          </h3>
+          <p>
+            UNets are hard to work with, and a lot of care must be put into the training process in order not to overfit.
+          </p>
+          
+          <p>
+            CNN, on the other hand, have become such a known technology (to me) that it is easier to obtain good results with them.
+          </p>
+          <br>
+          PS: In the Github page, the same procedure has been followed but with the <em><a href="https://www.kaggle.com/datasets/crawford/emnist">EMNIST Kaggle dataset</a></em> instead of real data.
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iPortfolio</span></strong>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../../assets/vendor/aos/aos.js"></script>
+  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../../assets/vendor/typed.js/typed.min.js"></script>
+  <script src="../../assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
+
+</body>
+
+</html>
