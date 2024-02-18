@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Jaume Albardaner</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../../assets/img/J.png" rel="icon">
+  <link href="../../assets/img/J.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v3.8.1
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../../assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="../../index.html">Jaume Albardaner <br>i Torras</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/jaumealbardaner/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="mailto:jaumealbardaner@gmail.com" class="email"><i class="bi bi-envelope"></i></a>
+          <a href="https://www.instagram.com/jaumealbardaner/" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://github.com/JaumeAlbardaner"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../../index.html#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="../../index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../../index.html#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+          <li><a href="../../index.html#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li> -->
+          <li><a href="../../index.html#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Game of Life</h2>
+          <ol>
+            <li><a href="../../index.html">Home</a></li>
+            <li>Game of Life</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <br>
+        <p>
+          <b>Level:</b> Medium project
+          <br>
+          <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/gameOfLife">https://github.com/JaumeAlbardaner/gameOfLife</a>
+          <br>
+          <b>Mark:</b> B (8.5 out of 10)
+        </p>
+        <br>
+        <h3>What is "Game of Life"?</h3>
+        
+        John Conway's Game of Life is a "cellular automaton". Given 4 initial rules, the game portrays the evolution in time of how each 
+        cell is affected by the rules.
+
+        </p> <br>
+        <h3>Rules:</h3>
+        <p>
+          The rules that are to be followed by each cell are the following:
+          <ul>
+            <li>Any live cell with fewer than two live neighbours dies, as if caused by under-population.</li>
+            <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+            <li>Any live cell with more than three live neighbours dies, as if by over-population.</li>
+            <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+          </ul>
+        </p>
+        
+        <h3>End scenarios:</h3>
+          <p>
+            In order to end the simulation, it must be detected whether there is a periodicity to the movement of the structures
+            present in the board.
+
+          Because of the rules specified previously, different stable structures can be generated. 
+          They are categorized into three main groups depending if they are static (<i>still lifes</i>), 
+          if they don't move but change pattern (<i>oscillators</i>), and the last ones are those that move (<i>spaceships</i>).
+
+          <center>
+          <table border= 3px width  ="70%">
+              <thead>
+                  <tr> 
+                      <th colspan=2><center>Still Lives</th>
+                      <th colspan=2><center>Oscillators</th>
+                      <th colspan=2><center>Spaceships</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Block</td>
+                      <td><img alt="block gif" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Game_of_life_block_with_border.svg" />
+                      </td>
+                      <td>Blinker (period 2)</td>
+                      <td><img alt="block gif" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Game_of_life_blinker.gif" />
+                      </td>
+                      <td>Glider</td>
+                      <td><img alt="block gif" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Game_of_life_animated_glider.gif" />
+                      </td>
+                  </tr>
+                  <!-- Row 2 -->
+                  <tr> 
+                      <td>Bee-hive</td>
+                      <td><img alt="Beehive gif" src="https://upload.wikimedia.org/wikipedia/commons/6/67/Game_of_life_beehive.svg" />
+                      </td>
+                      <td>Toad (period 2)</td>
+                      <td><img alt="Toad gif" src="https://upload.wikimedia.org/wikipedia/commons/1/12/Game_of_life_toad.gif" />
+                      </td>
+                      <td>Light-weight spaceship (LWSS)</td>
+                      <td><img alt="LWSS gif" src="https://upload.wikimedia.org/wikipedia/commons/3/37/Game_of_life_animated_LWSS.gif" />
+                      </td>
+                  </tr>
+                  <!-- Row 3 -->
+                  <tr>
+                      <td>Loaf</td>
+                      <td><img alt="Loaf gif" src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Game_of_life_loaf.svg" />
+                      </td>
+                      <td>Beacon (period 2)</td>
+                      <td><img alt="Beacon gif" src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Game_of_life_beacon.gif" />
+                      </td>
+                      <td>Middle-weight spaceship (MWSS)</td>
+                      <td><img alt="MWSS gif" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Animated_Mwss.gif" />
+                      </td>
+                  </tr>
+                  <!-- Row 4 -->
+                  <tr>
+                      <td>Boat</td>
+                      <td><img alt="Boat gif" src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Game_of_life_boat.svg" />
+                      </td>
+                      <td>Pulsar (period 3)</td>
+                      <td><img alt="Pulsar gif" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Game_of_life_pulsar.gif" />
+                      </td>
+                      <td>Heavy-weight spaceship (HWSS) </td>
+                      <td><img alt="HWSS gif" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Animated_Hwss.gif" />
+                      </td>
+                  </tr>
+                  <!-- Row 5 -->
+                  <tr>
+                      <td>Tub</td>
+                      <td><img alt="Tub gif" src="https://upload.wikimedia.org/wikipedia/commons/3/31/Game_of_life_flower.svg" />
+                      </td>
+                      <td>Penta-decathlon (Period 15)</td>
+                      <td><img alt="Penta-decathlon gif" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/I-Column.gif" />
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          </center>
+        </p>
+        <br>
+        <h3>Code</h3>
+        <p>
+          One of the important properties of the C code was that the arrays that act as a board were to be implemented using the <i>malloc</i>
+          instructions without causing memory leaks. This was ensured by using the <i>free</i> command on each pointer to a memory location every
+          time the array was not to be used anymore.
+        </p>
+        <br>
+        <p>
+          The instructions to run the different scenarios are described in the described Github repository.
+        </p>
+        <br>
+        <br>
+        <br>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iPortfolio</span></strong>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../../assets/vendor/aos/aos.js"></script>
+  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../../assets/vendor/typed.js/typed.min.js"></script>
+  <script src="../../assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
+
+</body>
+
+</html>
