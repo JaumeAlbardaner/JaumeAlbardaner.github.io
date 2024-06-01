@@ -35,10 +35,10 @@ jobs:
           chmod +x HappyBD.bash
           ./HappyBD.bash
 
-      # - name: Configure Git
-      #   run: |
-      #     git config --global user.name 'github-actions[bot]'
-      #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Configure Git
+        run: |
+          git config --global user.name 'Jaume Albardaner i Torras'
+          git config --global user.email 'jaal5534@colorado.edu'
 
       - name: Commit changes
         run: |
