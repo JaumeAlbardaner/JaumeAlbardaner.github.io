@@ -100,10 +100,9 @@
         </p>
         <div class="row justify-content-md-center">
           <div class="col-3">
-            <img src="../../assets/img/portfolio/Bumperless/epfl-logo.png" class="img-fluid" alt="">
+            <img src="../../assets/img/portfolio/Bumperless/epfl-logo.png" class="img-fluid" alt="EPFL logo">
           </div>
           </div>
-          <p style="font-size: 60px; font-weight: bold;">Website under construction</p>
           <br>
         <h3>What are "Bumper(less) cars"?</h3>
         <p>
@@ -114,26 +113,60 @@
         <p>
           Hence, bumper(less) cars is the name of the platform where bumper cars are kept away from their final goal: colliding.
         </p>
+        <br>
         <h3>Why bumper(less) cars?</h3>         
         <p>
           During my stay at the Dependable Control and Decision group (<a href="https://www.epfl.ch/labs/decode/">DECODE</a>) from the Laboratoire d'Automatique (<a href="https://www.epfl.ch/labs/la/">LA</a>) 
-          at the École Polytechnique Fédérale de Lausanne (EPFL), I was requested to implement a series of collision avoidance algorithms
+          at the École Polytechnique Fédérale de Lausanne (<a href="https://www.epfl.ch/en/">EPFL</a>), I was requested to implement a series of collision avoidance algorithms
           onto their motion capture system. The idea was to verify the results obtained in simulation on a real platform.
         </p>
+        <br>
         <h3>Algorithms</h3>         
         <p>
-          The algorithms that were considered for implementation in this project 
+          The algorithms that were considered for implementation in this project were the following:
           <ul>
-            <li> <b>DWA:</b>asdf</li>
-            <li> <b>CBF:</b>asdf</li>
-            <li> <b>C3BF:</b>asdf</li>
-            <li> <b>LBP:</b>asdf</li>
-            <li> <b>MPC:</b>asdf</li>
+            <li> <b>DWA:</b> <i> Dynamic Window Approach</i>. Given the current feasible inputs of the vehicle, choose the series of inputs that will not lead to collision and 
+            will lead as close as possible to the desired configuration.</li>
+            <li> <b>CBF:</b> <i>Collision Barrier Fuctions</i>. Minimizes the difference between the desired input and an input that will make the vehicle stay away from boundaries.
+            For this algorithm boundaries are circles around obstacles that increase the cost of a trajectory to the point of solver's infeasibility.</li>
+            <li> <b>C3BF:</b> <i>Collision Cone Control Barrier Functions</i>. Follows the same principle as CBF but rather than circles, the barrier function expands 
+            towards the controlled car if they are facingeach other, thus the cone shape.</li>
+            <li> <b>LBP:</b> <i>Lattice Based Planning</i>. Pre-computes feasible trajectories to reach certain configurations. Then, given a desired trajectory,
+              chooses the pre-computed trajectory that differs the least from the desired one, and follows its commands.</li>
+            <li> <b>MPC:</b> <i>Model Predictive Control</i>. In each timestep, a batch of simulations is performed forward in time. Then, the input that resulted
+            in the best trajectory is chosen and the next batch of iterations will (usually) be denser around the winning input.</li>
           </ul>
-          <i class="fas fa-graduation-cap google-scholar-icon"></i> Google Scholar
         </p>
-
+        <br>
         <h3>The implementation</h3>
+        <h4>The lab's setup</h4>
+        <p>
+          In the lab, there was a setup with motion capture cameras that could track accurately the position of the mini-cars.
+          However, preference was put into working with the simulated environment, as it allowed for parallel advancements on different projects 
+          without overlapping usage of the resources.
+        </p>
+        <p>
+          Both of the environments were build to work with ROS2, so the algorithms could be tested in both environments without any changes in the code.
+          The ROS2 structure of both environments can be seen below:
+        </p>
+        <div class="row justify-content-md-center" >
+          <div class="col-lg-8" width="70%">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/lab_sim.png" alt="Lab simulation environment" width="100%">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/lab_real.png" alt="Lab mocap environment" width="100%">
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+        </div></div></div>
+
+        <br>
+
         <h4>Early stages: Making the multi-car system</h4>
         <p>
           Since up to this point there had not been any previous project in the lab with the objective of controlling multiple cars, 
@@ -143,7 +176,7 @@
           information to be transmitted had been hardcoded for a single car.
         </p>
         <p>
-          The resulting system can be seen below:
+          A simulation for the resulting system can be seen below:
         </p>
           <!-- https://drive.google.com/file/d/1LPVzJQdJ1ALzDF81oCxS_o_sC961ZHdV/view?usp=sharing -->
           <div class="row justify-content-md-center">
@@ -152,29 +185,114 @@
         <h4>Bringing the system from Python to ROS2</h4>
         <p>
           Now that the lab simulator was ready to take multiple cars, it was time to modify the existing implementation for the collision avoidance algorithms.
-          These were written in Python3 and had to be ported to ROS2. This was not as simple as it sounds, as the code was not written in a modular way.
         </p>
+
+        <h5>Initial implementation</h5>
         
         <p>
-          The initial implementation had the following diagram:
-
-          <b>INSERT HERE THE INITIAL DIAGRAM</b>
-
+          The initial implementation of the algorithm included everything needed to run both with ROS2 and without it. Nonetheless, the provided code was 
+          not made in a modular manner. This proved to be a nuisance when porting the algorithms to the lab's ROS2 simulator.
         </p>
 
         <p>
-          After the porting, the system had the following diagram:
+          The initial implementation for each of the algorithms can be seen below:
+        </p>
+        <br>
+        <div class="row justify-content-md-center" >
+          <div class="col-lg-8" width="70%">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
 
-          <b>INSERT HERE THE FINAL DIAGRAM</b>
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/DWA_class.drawio-1.png" alt="DWA structure" width="100%">
+                </div>
 
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/CBF_class.drawio-1.png" alt="CBF structure" width="100%">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/LBP_class.drawio-1.png" alt="LBP structure" width="100%">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="../../assets/img/portfolio/Bumperless/MPC_class.drawio-1.png" alt="MPC structure" width="100%">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+        </div></div></div>
+        <br>
+        <h5>Final implementation</h5>
+        <p>
+          After porting the system to a ROS2 architecture that would work with the setup on the lab, the node structure can be seen in the UML diagram below:
+        </p>
+        <br>
+        <div class="row justify-content-md-center">
+            <div class="col-10">
+              <img src="../../assets/img/portfolio/Bumperless/ROS2_scheme1.png" class="img-fluid" alt="">
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <p>
+          In the diagram, classes are grouped by their functionality within the system:
+          <ul>
+            <li> <b>Gray:</b> Classes that require communication with ROS2 topics/services. </li>
+            <li> <b>Blue:</b> Classes that represent the main collision avoidance algorithms. </li>
+            <li> <b>Green:</b> Classes that represent the car. </li>
+          </ul>
         </p>
 
-        <!-- https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/view?usp=sharing -->
+        <p>
+          Some variables as well as some return types from functions can be seen highlighted in green the diagram. This is because 
+          their type is a non-standard one, so it has been documented in the image below. Only the definition of 
+          <a href="https://docs.ros.org/en/jade/api/geometry_msgs/html/msg/Pose2D.html">geometry_msgs/Pose2D</a> and 
+          <a href="https://docs.ros.org/en/noetic/api/std_msgs/html/msg/Header.html">std_msgs/Header</a> 
+          were not included, as they are standard ROS2 types.
+        </p>
+
         <div class="row justify-content-md-center">
-          <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/preview" allow="autoplay"></iframe>
-      </div><br>
+            <div class="col-5">
+              <img src="../../assets/img/portfolio/Bumperless/ROS2_scheme3.png" class="img-fluid" alt="">
+            </div>
+        </div>
+        <br>
+        <p>
+          Additionally, the types that were highlighted in light blue had to be custom made to be the response of a ROS2 service. 
+          Since they are not standard ROS2 types, they have been documented in the images below.
+        </p>
+
+        <div class="row justify-content-md-center">
+          <div class="col-5">
+            <img src="../../assets/img/portfolio/Bumperless/ROS2_scheme2.png" class="img-fluid" alt="">
+          </div>
+        </div>
+        <br>
+        <p>
+          For a more visual representation of what happens in an iteration of the algorithm, the diagram below was made. The steps that 
+          are followed by the algorithm are the following:
+          <ol>
+            <li> When it's time to send a command to the car, a boolean in <b>CollisionAvoidanceNode</b> is set to <i>True</i>,
+               so that the main loop can perform its computations. </li>
+            <li> A query is sent to <b>JoySafetyNode</b>, to check if collision avoidance is activated. If not, the node returns the desired control from the user. </li>
+            <li> The state of all cars is queried via <b>StateBufferNode</b>, and together with the desired control for the car, it's sent to the collision avoidance controller. </li>
+            <li> The collision avoidance controller returns a command that will not end in collision whilst resembling the desired command as much as possible. </li>
+            <li> The command is sent to the car (the safe one if collision avoidance is active, the desired one otherwise). The boolean is set to <i>False</i> again, making the main loop wait until the boolean is activated again. </li>
+          </ol>
+        </p>
+
+        <div class="row justify-content-md-center">
+            <div class="col-7">
+              <img src="../../assets/img/portfolio/Bumperless/ROS2_scheme4.png" class="img-fluid" alt="">
+            </div>
+        </div>
 
 
+
+
+        <br>
         <h3>Results</h3>
         <p>
           A system where cars can stop colliding with a press of a button was achieved, 
@@ -184,6 +302,11 @@
         <!-- https://drive.google.com/file/d/1ro3qxEEgvItUH6UsryXRyLXP8ooTT_VA/view?usp=sharing -->
         <div class="row justify-content-md-center">
             <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1ro3qxEEgvItUH6UsryXRyLXP8ooTT_VA/preview" allow="autoplay"></iframe>
+        </div><br>
+        <p><b>C3BF (simulation):</b></p>
+        <!-- https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/view?usp=sharing -->
+        <div class="row justify-content-md-center">
+          <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/preview" allow="autoplay"></iframe>
         </div><br>
         <p><b>C3BF:</b></p>
         <!-- https://drive.google.com/file/d/1fDJ-55fXNUCir0SlcQgl0E7vlT5O8SWI/view?usp=sharing -->
