@@ -37,6 +37,15 @@ div {
   text-justify: inter-word;
 }
 
+/* Google scholar logo */
+.google-scholar-icon {
+    font-size: 20px;
+    color: #ffffff; /* Google Blue */
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
