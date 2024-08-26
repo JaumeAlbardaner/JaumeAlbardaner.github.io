@@ -77,7 +77,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Bumper(less) cars: advanced control and ROS2 implementation </h2>
+          <h2>Bumper(less) cars: advanced control and ROS2 implementation</h2>
           <ol>
             <li><a href="../../index.html">Home</a></li>
             <li>Bumper(less)</li>
@@ -92,11 +92,11 @@
         <br>
         <p><b>Level:</b> Big project (Master's thesis)
           <br>
-          <b>GitHub Repository:</b> <a href="https://github.com/buranig/Master_thesis/tree/ros2-humble">https://github.com/buranig/Master_thesis/tree/ros2-humble</a>
+          <b>GitHub Repository:</b> <a href="https://github.com/JaumeAlbardaner/collision_avoidance_TFM">https://github.com/JaumeAlbardaner/collision_avoidance_TFM</a>
           <br>
-          <b>Grade:</b> - 
+          <b>Grade:</b> 5.75/6.0 
           <br>
-          <b>Publication:</b> - 
+          <b>Publication:</b> <a href="https://www.iri.upc.edu/master_thesis/show/248">https://www.iri.upc.edu/master_thesis/show/248</a>
         </p>
         <div class="row justify-content-md-center">
           <div class="col-3">
@@ -133,9 +133,11 @@
             towards the controlled car if they are facingeach other, thus the cone shape.</li>
             <li> <b>LBP:</b> <i>Lattice Based Planning</i>. Pre-computes feasible trajectories to reach certain configurations. Then, given a desired trajectory,
               chooses the pre-computed trajectory that differs the least from the desired one, and follows its commands.</li>
-            <li> <b>MPC:</b> <i>Model Predictive Control</i>. In each timestep, a batch of simulations is performed forward in time. Then, the input that resulted
-            in the best trajectory is chosen and the next batch of iterations will (usually) be denser around the winning input.</li>
-          </ul>
+            <li> <b>MPC:</b> <i>Model Predictive Control</i>. In each timestep, a simulation is performed forward in time. Then, the input for each timestep is optimized to minimize a cost function,
+              throughout the entire prediction horizon.</li>
+            <li> <b>MPPI:</b> <i>Model Predictive Path Integral control</i>. In each timestep, a batch of simulations is performed forward in time. Then, each trajectory is weighted based 
+              on a cost function and updates the distributions from which to sample. The weighted average of the inputs is performed at the first timestep, and the process is repeated.</li>
+            </ul>
         </p>
         <br>
         <h3>The implementation</h3>
@@ -175,13 +177,7 @@
           This was not as simple as running <i>N</i> instances of the same code, as some of the 
           information to be transmitted had been hardcoded for a single car.
         </p>
-        <p>
-          A simulation for the resulting system can be seen below:
-        </p>
-          <!-- https://drive.google.com/file/d/1LPVzJQdJ1ALzDF81oCxS_o_sC961ZHdV/view?usp=sharing -->
-          <div class="row justify-content-md-center">
-            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1LPVzJQdJ1ALzDF81oCxS_o_sC961ZHdV/preview" allow="autoplay"></iframe>
-        </div><br>
+
         <h4>Bringing the system from Python to ROS2</h4>
         <p>
           Now that the lab simulator was ready to take multiple cars, it was time to modify the existing implementation for the collision avoidance algorithms.
@@ -296,24 +292,12 @@
         <h3>Results</h3>
         <p>
           A system where cars can stop colliding with a press of a button was achieved, 
-          as well as a system where multiple cars can be controlled at the same time. Watch the videos below to see the system in action.
+          as well as a system where multiple cars can be controlled at the same time. Watch the video below to see the system in action.
         </p>
-        <p><b>DWA:</b></p>
-        <!-- https://drive.google.com/file/d/1ro3qxEEgvItUH6UsryXRyLXP8ooTT_VA/view?usp=sharing -->
+        <!-- https://drive.google.com/file/d/1WuSQeau7cdOqU-QNzDtFplVOfwvdhbjK/view?usp=sharing -->
         <div class="row justify-content-md-center">
-            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1ro3qxEEgvItUH6UsryXRyLXP8ooTT_VA/preview" allow="autoplay"></iframe>
-        </div><br>
-        <p><b>C3BF (simulation):</b></p>
-        <!-- https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/view?usp=sharing -->
-        <div class="row justify-content-md-center">
-          <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1NrF73qt4rQ6Y4wuFZilhuXNgbGT3y8bC/preview" allow="autoplay"></iframe>
-        </div><br>
-        <p><b>C3BF:</b></p>
-        <!-- https://drive.google.com/file/d/1fDJ-55fXNUCir0SlcQgl0E7vlT5O8SWI/view?usp=sharing -->
-        <div class="row justify-content-md-center">
-            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1fDJ-55fXNUCir0SlcQgl0E7vlT5O8SWI/preview" allow="autoplay"></iframe>
-        </div><br>
-        
+            <iframe style="width: 40vw; height:20vw;" src="https://drive.google.com/file/d/1WuSQeau7cdOqU-QNzDtFplVOfwvdhbjK/preview" allow="autoplay" allowfullscreen="allowfullscreen"></iframe>
+        </div><br>        
     </section>
 
   </main><!-- End #main -->
